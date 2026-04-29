@@ -95,3 +95,48 @@ function PostsCrud() {
 
 ---
 
+## Sending data From Child Component to Parent Component 
+
+***Parent Component***
+```jsx
+import React, { useState } from "react";
+import Child from "./ChildComponent";
+
+const Parent = () => {
+    const [name, setName] = useState("");
+
+    const handleDataFromChild = (str) => {
+        return setName(str);
+    }
+
+    return (
+        <>
+            <h4>Parent Component</h4>
+            <h4> Name from parent Component : {name}</h4>
+            <Child sendToParent={handleDataFromChild} />
+        </>
+    )
+}
+
+export default Parent;
+```
+
+**Child Component:** 
+```jsx
+import React, { useState } from "react";
+
+const Child = (props) => {
+    const [name, setName] = useState("");
+    return (
+        <>  
+        <div>
+            <input type="text" name="name" value={name} onChange={e => setName(e.target.value)} />
+        </div>
+            <button onClick={() => props.sendToParent(name)}>SendToParent</button>
+        </>
+    )
+}
+
+export default Child;
+```
+---
